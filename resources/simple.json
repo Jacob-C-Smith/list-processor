@@ -1,0 +1,29 @@
+{
+    "type" : "stream processor",
+    "description" : "Store A in O",
+    "nodes" :
+    {
+        "A" :
+        {
+            "out"  : [ "A" ],
+            "data" :
+            {
+                "type" : "input stream",  
+                "path" : "resources/a.stream"
+            }
+        },
+        "O" :
+        {
+            "in" : [ "O" ],
+            "data" :
+            {
+                "type" : "output stream",  
+                "path" : "resources/o.stream"
+            }
+        }
+    },
+    "connections" : 
+    [
+        [ "A:A", "O:O" ]
+    ]
+}
