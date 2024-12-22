@@ -1,6 +1,0 @@
-(
-    (func dog_constructor (name color sex) )
-    
-    (define eddy (dog Eddy Brown Male))
-    (define nami (dog Nami Gray Female))
-)
