@@ -1,13 +1,15 @@
 
 # Source
-cat $1 |
+#printf "%s\n%s\n%s\n" $1 $2 $3 
+
+cat $2 | cat $1 - |
 
 # Token streams
-./../build/eddy_lexer 2>/dev/null |
+./../build/lexer 2>/dev/null |
 
 # Abstract syntax tree
-./../build/eddy_syntax 2>/dev/null |
+./../build/syntax 2>/dev/null |
 
 # Interpreter output
-./../build/eddy_interpreter > $2 2> /dev/null
+./../build/interpreter > $3 2> /dev/null
 
