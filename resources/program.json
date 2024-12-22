@@ -5,7 +5,7 @@
     {
         "A" :
         {
-            "out"  : [ "A" ],
+            "out"  : [ "a" ],
             "data" :
             {
                 "type" : "file",  
@@ -14,7 +14,7 @@
         },
         "B" :
         {
-            "out"  : [ "B" ],
+            "out"  : [ "b" ],
             "data" :
             {
                 "type" : "file",  
@@ -23,17 +23,17 @@
         },
         "P" :
         {
-            "in"   : [ "A", "B" ],
-            "out"  : [ "O" ],
+            "in"   : [ "a", "b" ],
+            "out"  : [ "o" ],
             "data" :
             {
-                "type" : "program",
-                "task" : "O <- A + B"
+                "type"    : "program",
+                "program" : [ { "o" : "(+ a b)" }]
             }
         },
         "O" :
         {
-            "in" : [ "O" ],
+            "in" : [ "o" ],
             "data" :
             {
                 "type" : "file",  
@@ -43,8 +43,8 @@
     },
     "connections" : 
     [
-        [ "A:A", "P:A" ],
-        [ "B:B", "P:B" ],
-        [ "P:O", "O:O" ]
+        [ "A:a", "P:a" ],
+        [ "B:b", "P:b" ],
+        [ "P:o", "O:o" ]
     ]
 }

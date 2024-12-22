@@ -5,25 +5,25 @@
     {
         "A" :
         {
-            "out"  : [ "A" ],
+            "out"  : [ "a" ],
             "data" :
             {
                 "type" : "input stream",  
-                "path" : "resources/a.stream"
+                "path" : "a.stream"
             }
         },
         "O" :
         {
-            "in" : [ "O" ],
+            "in" : [ "o" ],
             "data" :
             {
                 "type" : "output stream",  
-                "path" : "resources/o.stream"
+                "path" : "o.stream"
             }
         }
     },
     "connections" : 
     [
-        [ "A:A", "O:O" ]
+        [ "A:a", "O:o" ]
     ]
 }
