@@ -271,7 +271,6 @@ json_value *process_symbol ( json_value *p_value )
     {
         case JSON_VALUE_ARRAY:
             size_t size = array_size(p_value->list);
-            log_error("list[%d] \n", size);
             
             {
                 json_value *p_first_value = (void *) 0;

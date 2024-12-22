@@ -147,34 +147,17 @@ endif()
 
 
 # Add source to this project's executable.
-add_executable (stream_processor_example "main.c")
-add_dependencies(stream_processor_example stream_processor json)
-target_include_directories(stream_processor_example PUBLIC ${STREAM_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(stream_processor_example stream_processor parallel node json array dict sync)
-
 add_executable (eddy_lexer "eddy_lexer.c")
-add_dependencies(eddy_lexer stream_processor json)
+add_dependencies(eddy_lexer json)
 target_include_directories(eddy_lexer PUBLIC ${STREAM_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(eddy_lexer stream_processor parallel node json array dict sync)
+target_link_libraries(eddy_lexer parallel node json array dict sync)
 
 add_executable (eddy_syntax "eddy_syntax.c")
-add_dependencies(eddy_syntax stream_processor json)
+add_dependencies(eddy_syntax json)
 target_include_directories(eddy_syntax PUBLIC ${STREAM_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(eddy_syntax stream_processor parallel node json array dict sync)
+target_link_libraries(eddy_syntax parallel node json array dict sync)
 
 add_executable (eddy_interpreter "eddy_interpreter.c")
-add_dependencies(eddy_interpreter stream_processor json)
+add_dependencies(eddy_interpreter json)
 target_include_directories(eddy_interpreter PUBLIC ${STREAM_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(eddy_interpreter stream_processor parallel node json array dict sync)
-
-## Add source to the tester
-# add_executable (node_test "node_test.c")
-# add_dependencies(node_test node json array dict sync log)
-# target_include_directories(node_test PUBLIC ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${LOG_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${HASH_CACHE_INCLUDE_DIR} ${DICT_INCLUDE_DIR} ${SYNC_INCLUDE_DIR})
-# target_link_libraries(node_test node json array dict sync log)
-
-# Add source to this project's library
-add_library (stream_processor SHARED "stream_processor.c")
-add_dependencies(stream_processor parallel node json array dict sync log)
-target_include_directories(stream_processor PUBLIC  ${STREAM_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${HASH_CACHE_INCLUDE_DIR} ${DICT_INCLUDE_DIR} ${SYNC_INCLUDE_DIR})
-target_link_libraries(stream_processor PUBLIC parallel node json array dict sync log)
+target_link_libraries(eddy_interpreter parallel node json array dict sync)

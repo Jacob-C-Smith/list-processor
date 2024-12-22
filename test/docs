@@ -35,7 +35,7 @@ for t in test-* ; do
     echo ${t##*/}
     printf "\033[00m"
 
-    ./compile.sh ./$t/prog ./$t/out.i
+    ./compile_info.sh ./$t/prog ./$t/out.i > ./$t/README.md
     
     Compare $t i
 done

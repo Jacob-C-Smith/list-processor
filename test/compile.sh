@@ -9,5 +9,5 @@ cat $1 |
 ./../build/eddy_syntax 2>/dev/null |
 
 # Interpreter output
-./../build/eddy_interpreter 2>/dev/null
+./../build/eddy_interpreter > $2 2> /dev/null
 

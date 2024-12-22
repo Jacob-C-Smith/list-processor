@@ -122,7 +122,18 @@ int main ( int argc, const char *argv[] )
                 case ' ':
 
                     break;
-                    
+                case '\"':
+                    printf("{\"identifier\":");
+                
+                    do  { putchar(c); c = getchar(); } 
+                    while
+                    (
+                        c != '\"'
+                    );
+                    c = getchar();
+                    printf("\"}\n");
+
+                    break;
                 default:            
                     printf("{\"identifier\":\"");
                     
