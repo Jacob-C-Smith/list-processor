@@ -3,3 +3,6 @@ lib/
 .vscode
 /CMakeFiles
 CMakeCache.txt
+/eddysrc
+program.eddy
+program
