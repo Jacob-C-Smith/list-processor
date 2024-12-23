@@ -163,7 +163,7 @@ target_include_directories(interpreter PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INC
 target_link_libraries(interpreter eddy_base eddy parallel node json array dict sync)
 
 # Add source to this project's library
-add_library (eddy_base SHARED "eddy/base/main.c" "eddy/base/arithmetic.c" "eddy/base/logic.c" "eddy/base/relational.c" "eddy/base/control.c" "eddy/base/string.c" "eddy/base/io.c")
+add_library (eddy_base SHARED "module/eddy/main.c" "module/eddy/arithmetic.c" "module/eddy/logic.c" "module/eddy/relational.c" "module/eddy/control.c" "module/eddy/string.c" "module/eddy/io.c")
 add_dependencies(eddy_base eddy parallel node json array dict sync)
 target_include_directories(eddy_base PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(eddy_base PRIVATE eddy parallel node json array dict sync)

@@ -15,7 +15,7 @@ void eddy_base_logic_register ( void )
     // Logical OR
     eddy_register("|", eddy_or);
 
-    fprintf(stderr, "[eddy] [base] [logical] Registered\n");    
+    fprintf(stderr, "[eddy] [logical] Registered\n");    
 }
 
 

@@ -14,7 +14,7 @@ void eddy_base_io_register ( void )
     // Write
     eddy_register("write", eddy_write);
 
-    fprintf(stderr, "[eddy] [base] [io] Registered\n");
+    fprintf(stderr, "[eddy] [io] Registered\n");
 
 }
 
@@ -54,6 +54,7 @@ json_value *eddy_write ( array *p_array )
         case JSON_VALUE_INTEGER:
         case JSON_VALUE_NUMBER:
             json_value_print(p_a);
+            putchar('\n');
             break;
         case JSON_VALUE_ARRAY:
             p_a = process_symbol(p_a);
