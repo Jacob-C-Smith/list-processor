@@ -8,14 +8,9 @@ json_value *eddy_write ( array *p_array );
 void eddy_base_io_register ( void )
 {
 
-    // Read
+    // IO
     eddy_register("read", eddy_read);
-
-    // Write
     eddy_register("write", eddy_write);
-
-    fprintf(stderr, "[eddy] [io] Registered\n");
-
 }
 
 json_value *eddy_read ( array *p_array )

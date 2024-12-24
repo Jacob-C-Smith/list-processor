@@ -64,8 +64,6 @@ void eddy_base_arithmetic_register ( void )
     eddy_register("*", eddy_mul);
     eddy_register("/", eddy_div);
 
-    fprintf(stderr, "[eddy] [arithmetic]\n");
-
     // Done
     return;
 }

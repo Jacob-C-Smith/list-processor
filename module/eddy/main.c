@@ -35,7 +35,6 @@ void eddy_base_init ( void )
     // IO
     eddy_base_io_register();
     
-    fprintf(stderr, "[eddy] Registered\n");
 
     // Done
     return;

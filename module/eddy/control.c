@@ -9,7 +9,6 @@ void eddy_base_control_register ( void )
 
     // If
     eddy_register("if", eddy_if);
-    fprintf(stderr, "[eddy] [control]\n");
 }
 
 json_value *eddy_if ( array *p_array )
