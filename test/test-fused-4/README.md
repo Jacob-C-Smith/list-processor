@@ -5,10 +5,35 @@
 ```
 ## Source
 ```lisp
-( print ( + ( * 2 2 ) 1 ) ( + ( * 2 2 ) 2 ) ( + ( * 2 2 ) 3 ) ) 
+( 2 * 2 ) + 1
+( 2 * 2 ) + 2
+( 2 * 2 ) + 3( print ( + ( * 2 2 ) 1 ) ( + ( * 2 2 ) 2 ) ( + ( * 2 2 ) 3 ) ) 
 ```
 ## Token Stream
 ```json
+{"separator":"("}
+{"identifier":"2"}
+{"identifier":"*"}
+{"identifier":"2"}
+{"separator":")"}
+{"identifier":"+"}
+{"identifier":"1
+"}
+{"separator":"("}
+{"identifier":"2"}
+{"identifier":"*"}
+{"identifier":"2"}
+{"separator":")"}
+{"identifier":"+"}
+{"identifier":"2
+"}
+{"separator":"("}
+{"identifier":"2"}
+{"identifier":"*"}
+{"identifier":"2"}
+{"separator":")"}
+{"identifier":"+"}
+{"identifier":"3"}
 {"separator":"("}
 {"identifier":"print"}
 {"separator":"("}
@@ -42,11 +67,7 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "+", [ "*", "2", "2" ], "1" ], [ "+", [ "*", "2", "2" ], "2" ], [ "+", [ "*", "2", "2" ], "3" ] ]
 ```
 ## Interpreter
 ```bash
-5
-6
-7
 ```
