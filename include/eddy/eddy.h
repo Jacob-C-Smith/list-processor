@@ -20,23 +20,6 @@
 #include <parallel/parallel.h>
 #include <parallel/thread.h>
 
-enum stream_processor_node_type_e 
-{
-    STERAM_PROCESSOR_NODE_TYPE_INPUT_STREAM  = 0,
-    STERAM_PROCESSOR_NODE_TYPE_OUTPUT_STREAM = 1,
-    STERAM_PROCESSOR_NODE_TYPE_PROGRAM       = 2,
-    STERAM_PROCESSOR_NODE_TYPE_QUANTITY      = 3
-};
-
-struct stream_processor_s;
-struct stream_processor_node_s;
-
-typedef struct stream_processor_s      stream_processor;
-typedef struct stream_processor_node_s stream_processor_node;
-
-typedef int(fn_stream_processor_node_constructor)(stream_processor_node **pp_node, const json_value *const p_value);
-typedef int(fn_stream_processor_task)(stream_processor_node *p_node);
-
 // Initializer
 /** !
  * This gets called at runtime before main. 
@@ -46,7 +29,24 @@ typedef int(fn_stream_processor_task)(stream_processor_node *p_node);
  * @return void
  */
 DLLEXPORT void eddy_init ( void ) __attribute__((constructor));
-DLLEXPORT int eddy_register(const char *p_name, json_value *(*pfn_symbol)(array *p_array));
+
+/** !
+ * Register a symbolic expression
+ * 
+ * @param p_name     the name of the symbolic expression
+ * @param pfn_symbol the symbolic expression
+ * 
+ * @return 1 on success, 0 on error
+ */
+DLLEXPORT int eddy_register ( const char *p_name, json_value *(*pfn_symbol) (array *p_array) );
+
+/** !
+ * Recursively evaluate a symbolic expression
+ * 
+ * @param p_value the symbolic expression
+ * 
+ * @return the result of evaluating the symbolic expression
+ */
 DLLEXPORT json_value *process_symbol ( json_value *p_value );
 
 // Cleanup

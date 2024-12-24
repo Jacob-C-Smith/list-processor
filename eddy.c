@@ -5,32 +5,7 @@ dict *p_eddy_bindings = (void *) 0;
 
 static bool initialized = false;
 
-int eddy_help_print ( char *p_key, size_t i )
-{
-
-    printf("%s:%i\n",p_key,i);
-
-    // Success
-    return 1;
-}
-
-json_value *eddy_help (array *p_array)
-{
-    
-    json_value *p_result = 0;
-    void (*function)(const void *const p_key, size_t i );
-    char *_p_binding[1024] = { 0 };
-    size_t len = dict_keys(p_eddy_bindings, 0);
-    
-    dict_keys(p_eddy_bindings, (const char **const) _p_binding);
-
-    for (size_t i = 0; i < len; i++)
-        printf("\n - %s",_p_binding[i]);
-    printf("\n\n");
-    
-    // Success
-    return p_result;
-}
+    json_value *eddy_help (array *p_array);
 
 void eddy_init ( void )
 {
@@ -64,15 +39,44 @@ void eddy_init ( void )
     return;
 }
 
-int eddy_register(const char *p_name, json_value *(*pfn_symbol)(array *p_array))
+int eddy_help_print ( char *p_key, size_t i )
 {
 
-    dict_add(p_eddy_bindings, p_name, pfn_symbol);
+    // Print 
+    printf("%s:%i\n",p_key,i);
 
     // Success
     return 1;
 }
 
+json_value *eddy_help (array *p_array)
+{
+    
+    json_value *p_result = 0;
+    void (*function)(const void *const p_key, size_t i );
+    char *_p_binding[1024] = { 0 };
+    size_t len = dict_keys(p_eddy_bindings, 0);
+    
+    dict_keys(p_eddy_bindings, (const char **const) _p_binding);
+
+    // Print each binding
+    for (size_t i = 0; i < len; i++) printf("\n - %s",_p_binding[i]);
+    printf("\n\n");
+    
+    // Success
+    return p_result;
+}
+
+int eddy_register(const char *p_name, json_value *(*pfn_symbol)(array *p_array))
+{
+
+    dict_add(p_eddy_bindings, p_name, pfn_symbol);
+
+    fprintf(stderr, "\033[01;94m[eddy]\033[00;0m %p -> \033[01;94m\'%s\'\033[00;0m\n", pfn_symbol, p_name);
+
+    // Success
+    return 1;
+}
 
 json_value *process_symbol ( json_value *p_value )
 {
@@ -99,6 +103,11 @@ json_value *process_symbol ( json_value *p_value )
                 }
                 
                 json_value *(*pfn_func)(array *p_array) = dict_get(p_eddy_bindings, p_first_value->string);
+                
+                if ( pfn_func == (void *) 0 ){
+                    log_error("[eddy] No binding for \"%s\"\n", p_first_value->string);
+                    goto no_bind;
+                } 
                 p_result = pfn_func(p_value->list);
 
                 break;
@@ -120,8 +129,10 @@ json_value *process_symbol ( json_value *p_value )
 
     // Success
     return p_result;
-}
+    no_bind:
+        return 0;
 
+}
 
 void eddy_exit ( void )
 {
