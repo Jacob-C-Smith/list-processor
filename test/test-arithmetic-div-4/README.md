@@ -5,10 +5,17 @@
 ```
 ## Source
 ```lisp
-( print ( / 32 2 2 2 ) ) 
+32 / 2 / 2 / 2( print ( / 32 2 2 2 ) ) 
 ```
 ## Token Stream
 ```json
+{"identifier":"32"}
+{"identifier":"/"}
+{"identifier":"2"}
+{"identifier":"/"}
+{"identifier":"2"}
+{"identifier":"/"}
+{"identifier":"2"}
 {"separator":"("}
 {"identifier":"print"}
 {"separator":"("}
@@ -22,9 +29,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "/", "32", "2", "2", "2" ] ]
+"32", "/", "2", "/", "2", "/", "2", [ "print", [ "/", "32", "2", "2", "2" ] ]
 ```
 ## Interpreter
 ```bash
-4
 ```

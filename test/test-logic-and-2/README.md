@@ -5,10 +5,25 @@
 ```
 ## Source
 ```lisp
-( print ( & 0 0 ) ( & 0 1 ) ( & 1 0 ) ( & 1 1 ) )
+0 & 0
+0 & 1
+1 & 0
+1 & 1( print ( & 0 0 ) ( & 0 1 ) ( & 1 0 ) ( & 1 1 ) )
 ```
 ## Token Stream
 ```json
+{"identifier":"0"}
+{"identifier":"&"}
+{"identifier":"0
+0"}
+{"identifier":"&"}
+{"identifier":"1
+1"}
+{"identifier":"&"}
+{"identifier":"0
+1"}
+{"identifier":"&"}
+{"identifier":"1"}
 {"separator":"("}
 {"identifier":"print"}
 {"separator":"("}
@@ -35,12 +50,7 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "&", "0", "0" ], [ "&", "0", "1" ], [ "&", "1", "0" ], [ "&", "1", "1" ] ]
 ```
 ## Interpreter
 ```bash
-false
-false
-false
-true
 ```

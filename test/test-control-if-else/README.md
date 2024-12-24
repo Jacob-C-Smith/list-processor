@@ -5,11 +5,16 @@
 ```
 ## Source
 ```lisp
-( if ( == 5 5 ) ( print "eq" ) )
+if 5 eq 5 print "eq"( if ( == 5 5 ) ( print "eq" ) )
 ```
 ## Token Stream
 ```json
-{"separator":"("}
+{"identifier":"if"}
+{"identifier":"5"}
+{"identifier":"eq"}
+{"identifier":"5"}
+{"identifier":"print"}
+{"identifier":"eq"}
 {"identifier":"if"}
 {"separator":"("}
 {"identifier":"=="}
@@ -24,9 +29,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "if", [ "==", "5", "5" ], [ "print", "eq" ] ]
+"if", "5", "eq", "5", "print", "eq", "if", [ "==", "5", "5" ], [ "print", "eq" ] ]
 ```
 ## Interpreter
 ```bash
-eq
 ```

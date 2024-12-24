@@ -15,7 +15,7 @@ void eddy_base_string_register ( void )
     // Length
     eddy_register("len", eddy_len);
 
-    fprintf(stderr, "[eddy] [base] [string] Registered\n");
+    fprintf(stderr, "[eddy] [string] Registered\n");
 
 }
 

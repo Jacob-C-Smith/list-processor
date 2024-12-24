@@ -1,71 +1,133 @@
+/** !
+ * Eddy Arithmetic operations
+ * 
+ * @file arithmetic.c
+ * 
+ * @author Jacob Smith
+ */
+
+// standard library
 #include <stdio.h>
+
+// json module
 #include <json/json.h>
+
+// eddy module
 #include <eddy/eddy.h>
 
+// Forward declarations
+
+
+/** !
+ * add operation
+ *
+ * @param p_array values for add operation.
+ * 
+ * @return p_array[1] + p_array[2] + ... + p_array[N] 
+ */
 json_value *eddy_add ( array *p_array );
+
+/** !
+ * sub operation
+ *
+ * @param p_array values for sub operation.
+ * 
+ * @return p_array[1] - p_array[2] - ... - p_array[N] 
+ */
 json_value *eddy_sub ( array *p_array );
+
+/** !
+ * mul operation
+ *
+ * @param p_array values for mul operation.
+ * 
+ * @return p_array[1] * p_array[2] * ... * p_array[N] 
+ */
 json_value *eddy_mul ( array *p_array );
+
+/** !
+ * div operation
+ *
+ * @param p_array values for div operation.
+ * 
+ * @return p_array[1] / p_array[2] / ... / p_array[N] 
+ */
 json_value *eddy_div ( array *p_array );
 
+// Function declarations
 void eddy_base_arithmetic_register ( void )
 {
 
-    // Addition
+    // Register arithmetic functions
     eddy_register("+", eddy_add);
-
-    // Subtraction
     eddy_register("-", eddy_sub);
-
-    // Multiplication
     eddy_register("*", eddy_mul);
-
-    // Division
     eddy_register("/", eddy_div);
 
-    fprintf(stderr, "[eddy] [base] [arithmetic] Registered\n");
-
+    // Done
+    return;
 }
 
 json_value *eddy_add ( array *p_array )
 {
 
+    // Initialized data
     size_t max = array_size(p_array);
-    size_t accumulator = 0;
+    size_t acc = 0;
     
+    // Walk the list
     for (size_t i = 1; i < max; i++)
     {
         
+        // Initialized data
         json_value *p_value = (void *) 0;
         size_t addend = 0;
 
+        // Access the i'th element of the array
         array_index(p_array, i, (void **) &p_value);
 
+        // Strategy
         try_again:
         switch (p_value->type)
         {
+
+            // Number from string
             case JSON_VALUE_STRING:
+
+                // TODO: Error check
+                // Scan the number from ascii text
                 sscanf(p_value->string, " %d", &addend);
-                accumulator += addend;
+                
+                // Accumulate
+                acc += addend;
+                
+                // Done
                 break;
 
             case JSON_VALUE_INTEGER:
-                accumulator += p_value->integer;
+
+                // Accumulate
+                acc += p_value->integer;
+
+                // Done
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
-                goto try_again;
-                continue;
-            
-            default:
-                break;
-        }
 
+                // eval
+                p_value = process_symbol(p_value);
+
+                // Done
+                goto try_again;
+
+            // TODO: Error handling
+            default: break;
+        }
     }
 
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_INTEGER,
-    p_value->integer = accumulator;
+    p_value->integer = acc;
 
     return p_value;
 }

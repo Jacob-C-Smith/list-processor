@@ -16,7 +16,7 @@ void eddy_base_relational_register ( void )
     eddy_register("!=", eddy_neq);
 
 
-    fprintf(stderr, "[eddy] [base] [relational] Registered\n");    
+    fprintf(stderr, "[eddy] [relational] Registered\n");    
 }
 
 

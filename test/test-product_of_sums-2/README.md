@@ -5,10 +5,21 @@
 ```
 ## Source
 ```lisp
-( print ( * ( + 2 2 ) ( + 2 2 ) ) ) 
+(2 + 2) * (2 + 2)( print ( * ( + 2 2 ) ( + 2 2 ) ) ) 
 ```
 ## Token Stream
 ```json
+{"separator":"("}
+{"identifier":"2"}
+{"identifier":"+"}
+{"identifier":"2"}
+{"separator":")"}
+{"identifier":"*"}
+{"separator":"("}
+{"identifier":"2"}
+{"identifier":"+"}
+{"identifier":"2"}
+{"separator":")"}
 {"separator":"("}
 {"identifier":"print"}
 {"separator":"("}
@@ -28,9 +39,9 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "*", [ "+", "2", "2" ], [ "+", "2", "2" ] ] ]
+[ "2", "+", "2" ], "*", [ "2", "+", "2" ], [ "print", [ "*", [ "+", "2", "2" ], [ "+", "2", "2" ] ] ]
 ```
 ## Interpreter
 ```bash
-16
+[eddy] No binding for "2"
 ```

@@ -5,10 +5,19 @@
 ```
 ## Source
 ```lisp
-( print ( - 15 4 3 2 1 ) ) 
+15 - 4 - 3 - 2 - 1( print ( - 15 4 3 2 1 ) ) 
 ```
 ## Token Stream
 ```json
+{"identifier":"15"}
+{"identifier":"-"}
+{"identifier":"4"}
+{"identifier":"-"}
+{"identifier":"3"}
+{"identifier":"-"}
+{"identifier":"2"}
+{"identifier":"-"}
+{"identifier":"1"}
 {"separator":"("}
 {"identifier":"print"}
 {"separator":"("}
@@ -23,9 +32,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "-", "15", "4", "3", "2", "1" ] ]
+"15", "-", "4", "-", "3", "-", "2", "-", "1", [ "print", [ "-", "15", "4", "3", "2", "1" ] ]
 ```
 ## Interpreter
 ```bash
-5
 ```
