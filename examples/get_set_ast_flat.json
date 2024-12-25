@@ -1,0 +1,1 @@
+[ [ "write", "Ender X: " ], [ "set", "x", [ "read" ] ], [ "write", "Ender Y: " ], [ "set", "y", [ "read" ] ], [ "write", [ "if", [ "==", [ "get", "x" ], [ "get", "y" ] ], "equal", "not equal" ] ] ]
