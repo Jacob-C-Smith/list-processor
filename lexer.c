@@ -80,28 +80,39 @@ int main ( int argc, const char *argv[] )
                     (
                         c != '\"'
                     );
-                    c = getchar();
                     printf("\"}\n");
 
                     break;
                 default:            
-                    printf("{\"identifier\":\"");
+                    printf("{\"identifier\":");
+
+                    if ( isdigit(c) )
+                    {
+                        do { putchar(c); c = getchar(); }
+                        while ( isdigit(c) );
+                        ungetc(c, stdin);
+                        printf("}\n");
+                    } 
                     
-                    do  { putchar(c); c = getchar(); } 
-                    while
-                    (
-                        c != ' ' &&
-                        c != '(' &&
-                        c != ')' 
-                    );
-                    ungetc(c, stdin);
-                    printf("\"}\n");
+                    else
+                    {
+                        printf("\"");
+                        do  { putchar(c); c = getchar(); } 
+                        while
+                        (
+                            c != ' ' &&
+                            c != '(' &&
+                            c != ')' 
+                        );
+                        ungetc(c, stdin);
+                        printf("\"}\n");
+                    }
                     break;
             }
             
             // 
             c = getchar();
-
+            fflush(stdout);
         }
     }
         

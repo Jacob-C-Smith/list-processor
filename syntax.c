@@ -22,12 +22,19 @@ int print_list ( void )
     char  _in[1024]   = { 0 };
     char *p_in        = _in;
     bool first = 1;
+    static int d = 0;
     
-    while ( fgets(p_in, 1024, stdin) )
+    while ( !feof(stdin) )
     {
 
         // Initialized data
         json_value *p_value = (void *) 0;
+
+        // Read line from standard in
+        int rc = scanf(" %[^\n]", p_in);
+
+        if ( rc == -1 ) break;
+        else if ( rc == 0 ) log_warning("[lp] [syntax] Error!\n");
 
         // Parse the json value
         json_value_parse(p_in, 0, &p_value);
@@ -38,12 +45,30 @@ int print_list ( void )
         {
             
             // Print the token
-            char *p_lexeme = ((json_value *) dict_get(p_value->object, "identifier"))->string;
+            json_value *p_id_value = dict_get(p_value->object, "identifier");
+
             if ( first == 0 )
                 putchar(','), putchar(' ');
             else first = 0;
 
-            printf("\"%s\"", p_lexeme);                
+            switch (p_id_value->type)
+            {
+            case JSON_VALUE_STRING:
+                printf("\"%s\"", p_id_value->string);
+                break;
+            case JSON_VALUE_BOOLEAN:
+                printf("%s", p_id_value->boolean ? "true" : "false");
+                break;
+            case JSON_VALUE_INTEGER:
+                printf("%d", p_id_value->integer);
+                break;
+            case JSON_VALUE_NUMBER:
+                printf("%g", p_id_value->number);
+                break;
+            
+            default:
+                break;
+            }
 
         }
         else if ( dict_get(p_value->object, "separator" ) )
@@ -56,31 +81,44 @@ int print_list ( void )
             {
 
                 if ( first == 0 )
-                    putchar(','), putchar(' ');
+                {
+                    if ( d != 0 )
+                        putchar(','), putchar(' ');
+                }
                 else first = 0;
 
+                d++;
                 putchar('[');
                 putchar(' ');
                 print_list();
-                
-
             }
             else
             {
                 putchar(' ');
                 putchar(']');
+
+                d--;
+                if ( d == 0 )
+                {
+                    fflush(stdout);
+                    putchar('\n');
+                }
             }
         }
 
+        if ( d == 0 ) fflush(stdout);
+
         // Free the value
         json_value_free(p_value);
+
+        fflush(stdout);
     }
 
     return 1;
 }
 
 int main ( int argc, const char *argv[] )
-{
+{    
 
     // read-eval-write loop
     print_list();

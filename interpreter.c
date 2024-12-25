@@ -71,7 +71,8 @@ int main ( int argc, const char *argv[] )
             // Done
             continue;
         }
-
+        getchar();
+        
         // Parse the input
         json_value_parse(_program, 0, &p_value);
 
