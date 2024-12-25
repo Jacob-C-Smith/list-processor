@@ -6,7 +6,7 @@
 ## Source
 ```lisp
 ( 2 * 2 ) + 1
-( 2 * 2 ) + 2( print ( + ( * 2 2 ) 3 ) ) 
+( 2 * 2 ) + 2( write ( + ( * 2 2 ) 3 ) ) 
 ```
 ## Token Stream
 ```json
@@ -26,7 +26,7 @@
 {"identifier":"+"}
 {"identifier":"2"}
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"+"}
 {"separator":"("}

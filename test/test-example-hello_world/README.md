@@ -5,7 +5,7 @@
 ```
 ## Source
 ```lisp
-Print "Hello, World!"( print "Hello, World!" )
+Print "Hello, World!"( write "Hello, World!" )
 ```
 ## Token Stream
 ```json
@@ -17,8 +17,7 @@ Print "Hello, World!"( print "Hello, World!" )
 ```
 ## Abstract syntax tree
 ```json
-"Print", "Hello, World!", "print", "Hello, World!" ]
-```
+"Print", "Hello, World!", "print", "Hello, World!" ]```
 ## Interpreter
 ```bash
 ```

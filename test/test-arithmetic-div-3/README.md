@@ -5,7 +5,7 @@
 ```
 ## Source
 ```lisp
-16 / 4 / 2( print ( / 16 4 2 ) ) 
+16 / 4 / 2( write ( / 16 4 2 ) ) 
 ```
 ## Token Stream
 ```json
@@ -15,7 +15,7 @@
 {"identifier":"/"}
 {"identifier":"2"}
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"/"}
 {"identifier":"16"}
@@ -26,8 +26,7 @@
 ```
 ## Abstract syntax tree
 ```json
-"16", "/", "4", "/", "2", [ "print", [ "/", "16", "4", "2" ] ]
-```
+"16", "/", "4", "/", "2", [ "write", [ "/", "16", "4", "2" ] ]```
 ## Interpreter
 ```bash
 ```

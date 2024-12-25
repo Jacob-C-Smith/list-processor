@@ -1,1 +1,1 @@
-( print ( != false false ) ( != false true ) ( != true false ) ( != true true ) )
+( write ( != false false ) ( != false true ) ( != true false ) ( != true true ) )

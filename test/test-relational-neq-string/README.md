@@ -5,12 +5,12 @@
 ```
 ## Source
 ```lisp
-( print ( != "" "" ) ( != "a" "" ) ( != "" "a" ) ( != "a" "a" ) ( != "a" "b" ) ( != "b" "a" ) ( != "b" "b" ) )
+( write ( != "" "" ) ( != "a" "" ) ( != "" "a" ) ( != "a" "a" ) ( != "a" "b" ) ( != "b" "a" ) ( != "b" "b" ) )
 ```
 ## Token Stream
 ```json
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"!="}
 {"identifier":""}
@@ -50,15 +50,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "!=", "", "" ], [ "!=", "a", "" ], [ "!=", "", "a" ], [ "!=", "a", "a" ], [ "!=", "a", "b" ], [ "!=", "b", "a" ], [ "!=", "b", "b" ] ]
-```
+[ "write", [ "!=", "", "" ], [ "!=", "a", "" ], [ "!=", "", "a" ], [ "!=", "a", "a" ], [ "!=", "a", "b" ], [ "!=", "b", "a" ], [ "!=", "b", "b" ] ]```
 ## Interpreter
 ```bash
-false
-true
-true
-false
-true
-true
 false
 ```

@@ -7,7 +7,7 @@
 ```lisp
 ( 2 * 2 ) + 1
 ( 2 * 2 ) + 2
-( 2 * 2 ) + 3( print ( + ( * 2 2 ) 1 ) ( + ( * 2 2 ) 2 ) ( + ( * 2 2 ) 3 ) ) 
+( 2 * 2 ) + 3( write ( + ( * 2 2 ) 1 ) ( + ( * 2 2 ) 2 ) ( + ( * 2 2 ) 3 ) ) 
 ```
 ## Token Stream
 ```json
@@ -35,7 +35,7 @@
 {"identifier":"+"}
 {"identifier":"3"}
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"+"}
 {"separator":"("}

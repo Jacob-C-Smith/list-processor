@@ -5,7 +5,7 @@
 ```
 ## Source
 ```lisp
-( if ( == "5" "5" ) ( print "eq" ) )
+( if ( == "5" "5" ) ( write "eq" ) )
 ```
 ## Token Stream
 ```json
@@ -24,9 +24,7 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "if", [ "==", "5", "5" ], [ "print", "eq" ] ]
-```
+[ "if", [ "==", "5", "5" ], [ "print", "eq" ] ]```
 ## Interpreter
 ```bash
-eq
 ```

@@ -5,12 +5,12 @@
 ```
 ## Source
 ```lisp
-( print ( == false false ) ( == false true ) ( == true false ) ( == true true ) )
+( write ( == false false ) ( == false true ) ( == true false ) ( == true true ) )
 ```
 ## Token Stream
 ```json
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"=="}
 {"identifier":"false"}
@@ -35,12 +35,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "print", [ "==", "false", "false" ], [ "==", "false", "true" ], [ "==", "true", "false" ], [ "==", "true", "true" ] ]
-```
+[ "write", [ "==", "false", "false" ], [ "==", "false", "true" ], [ "==", "true", "false" ], [ "==", "true", "true" ] ]```
 ## Interpreter
 ```bash
-true
-false
-false
 true
 ```

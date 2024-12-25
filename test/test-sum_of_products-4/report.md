@@ -1,7 +1,7 @@
 # test-sum-of-products-4
 ## Source
 ```lisp
-( print ( + ( * 2 2 ) ( * 2 2 ) ( * 2 2 ) ( * 2 2 ) ) ) 
+( write ( + ( * 2 2 ) ( * 2 2 ) ( * 2 2 ) ( * 2 2 ) ) ) 
 ```
 ## Token Stream
 ```json

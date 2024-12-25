@@ -19,9 +19,7 @@ Hello
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "read" ] ]
-```
+[ "write", [ "read" ] ]```
 ## Interpreter
 ```bash
-""
 ```

@@ -8,7 +8,7 @@
 0 & 0
 0 & 1
 1 & 0
-1 & 1( print ( & 0 0 ) ( & 0 1 ) ( & 1 0 ) ( & 1 1 ) )
+1 & 1( write ( & 0 0 ) ( & 0 1 ) ( & 1 0 ) ( & 1 1 ) )
 ```
 ## Token Stream
 ```json
@@ -25,7 +25,7 @@
 {"identifier":"&"}
 {"identifier":"1"}
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"separator":"("}
 {"identifier":"&"}
 {"identifier":"0"}
