@@ -21,165 +21,116 @@
 // json 
 #include <json/json.h>
 
-// eddy
-#include <eddy/eddy.h>
+// list processor
+#include <list_processor/list_processor.h>
 
 /** !
  * Parse command line arguments
  * 
- * @param argc          the argc parameter of the entry point
- * @param argv          the argv parameter of the entry point
- * @param p_memory_size result
+ * @param argc the argc parameter of the entry point
+ * @param argv the argv parameter of the entry point
+
  * 
  * @return void on success, program abort on failure
  */
-void parse_command_line_arguments ( int argc, const char *argv[], size_t *p_memory_size );
-
-// Data
-struct
-{
-    size_t used;
-    size_t memory_size;
-    char *p_memory;
-} value_bump;
-
-json_value *value_alloc ( void )
-{
-    json_value *p_value = (json_value *) &value_bump.p_memory[value_bump.used];
-
-    value_bump.used += sizeof(json_value);
-
-    return p_value;
-}
-
-
-const char *string_alloc ( size_t len )
-{
-    char *p_value = (char *) &value_bump.p_memory[value_bump.used];
-
-    value_bump.used += len + 1;
-
-    return p_value;
-}
-
-json_value *eddy_print ( array *p_array )
-{
-
-    size_t max = array_size(p_array);
-    
-    for (size_t i = 1; i < max; i++)
-    {
-
-        json_value *p_value = (void *) 0;
-
-        array_index(p_array, i, (void **) &p_value);
-
-        try_again:
-        switch (p_value->type)
-        {
-            case JSON_VALUE_STRING:
-                printf("%s\n", p_value->string);
-                break;
-                
-            case JSON_VALUE_INTEGER:
-                printf("%d\n", p_value->integer);
-                break;
-            
-            case JSON_VALUE_BOOLEAN:
-                printf("%s\n", p_value->boolean ? "true" : "false");
-                break;
-
-            case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
-                goto try_again;
-            default:
-                break;
-        }
-
-    }
-    
-
-    json_value *p_value = realloc(0, sizeof(json_value));
-    p_value->type    = JSON_VALUE_INTEGER,
-    p_value->integer = 1;
-
-    return p_value;
-}
-
-json_value *eddy_scan_int ( array *p_array )
-{    
-    json_value *p_value = realloc(0, sizeof(json_value));
-    p_value->type = JSON_VALUE_INTEGER;
-    scanf(" %d", &p_value->integer);
-    getchar();
-    
-    return p_value;
-}
-
-json_value *eddy_scan_str ( array *p_array )
-{    
-    json_value *p_value = realloc(0, sizeof(json_value));
-    char *p_string = string_alloc(63+1);
-    p_value->type = JSON_VALUE_INTEGER;
-    scanf(" %s", p_string);
-    getchar();
-    *p_value = (json_value) { .type = JSON_VALUE_STRING, .string = p_string };
-
-    return p_value;
-}
+void parse_command_line_arguments ( int argc, const char *argv[] );
 
 // Entry point
 int main ( int argc, const char *argv[] )
 {
     
     // Initialized data
-    size_t memory_pool_size = 65536;
+    list_processor *p_list_processor = (void *) 0;
     json_value *p_value = (void *) 0;
+    bool running = true;
     char _program[1024] = { 0 };
 
-    // Construct environment
-    {
-
-        // IO
-        eddy_register("print", eddy_print);
-        eddy_register("read_int", eddy_scan_int);
-        eddy_register("read_str", eddy_scan_str);
-    }
-
     // Parse command line arguments
-    parse_command_line_arguments(argc, argv, &memory_pool_size);
+    parse_command_line_arguments(argc, argv);
 
-    if ( memory_pool_size == -1 ) return EXIT_FAILURE;
+    // Construct a list constructor
+    lp_constructor(&p_list_processor, 4096);
 
-    value_bump.used = 0;
-    value_bump.memory_size = memory_pool_size;
-    value_bump.p_memory = realloc(0, memory_pool_size);
-    bool running = true;
-
-    while(running)
+    // Read Eval Write loop
+    while ( running )
     {
 
-        fprintf(stderr, ">>> ");
+        // Clear input buffer
         memset(_program, 0, sizeof(_program));
+        static int y = 0;
+        
+        fprintf(stderr, " >>> ", y++);
+
+        // Read line from standard in
         if ( -1 == scanf(" %[^\n]", &_program) )
         {
-            running = false;
+
+            // EOF
+            running = false; 
+
+            // Done
             continue;
         }
 
+        // Parse the input
         json_value_parse(_program, 0, &p_value);
 
-        process_symbol(p_value);
+        // Evaluate the input
+        lp_eval(p_list_processor, p_value, &p_value);
+    
+        // Release the input
+        //json_value_free(p_value);
+        
+        switch (p_value->type)
+        {
+            case JSON_VALUE_STRING: 
+                fprintf(stderr, "\033[96m\033[1m\033[4mstr\033[0m \033[03m\"%.15s\"\033[0m", p_value->string);
+                fprintf(stderr, "%s", p_value->string);
+
+                break;
+            case JSON_VALUE_BOOLEAN: 
+                fprintf(stderr, "\033[96m\033[1m\033[4mbool\033[0m \033[03m%s\033[0m", p_value->boolean ? "true" : "false");
+                break;
+            case JSON_VALUE_INTEGER: 
+                fprintf(stderr, "\033[96m\033[1m\033[4mint\033[0m \033[03m%d\033[0m", p_value->integer);
+
+                break;
+            case JSON_VALUE_NUMBER: 
+                fprintf(stderr, "\033[96m\033[1m\033[4mnum\033[0m \033[03m%g\033[0m", p_value->number);
+
+                break;
+            case JSON_VALUE_OBJECT: 
+                json_value_fprint(p_value, stderr);
+
+                break;
+            case JSON_VALUE_ARRAY:
+            {
+                
+                for (size_t i = 0; i < array_size(p_value->list) - 1; i++)
+                {
+                    json_value *p_xvalue = (void *) 0;
+                    array_index(p_xvalue->list, i, (void **) &p_xvalue);
+                    fprintf(stderr, "arr @%d : ", i);
+                    json_value_fprint(p_xvalue, stderr);
+                }
+            }
+                break;
+            default:
+                break;
+        }
     };
 
-    value_bump.p_memory = realloc(value_bump.p_memory, 0);
-    json_value_free(p_value);
+    // End
+    fprintf(stderr, "\033[44m%s \033[0m", argv[0]);
 
+    // EOF?
+    if ( feof(stdin) ) fprintf(stderr, "\033[44m\033[0m\n");
+    
     // Success
     return EXIT_SUCCESS;
 }
 
-void parse_command_line_arguments ( int argc, const char *argv[], size_t *p_memory_size )
+void parse_command_line_arguments ( int argc, const char *argv[] )
 {
 
     // If no command line arguments are supplied, run all the examples
@@ -188,36 +139,6 @@ void parse_command_line_arguments ( int argc, const char *argv[], size_t *p_memo
     size_t scale = 1; 
     char unit = 0;
     
-    if ( strcmp(argv[1], "memory") == 0 )
-        switch (sscanf(argv[2], "%d%c", &mem, &unit)) {case 2:
-            switch ( unit )
-            {
-                case 'b':
-                case 'B':
-                    scale = 1;
-                    break;
-                case 'k':
-                case 'K':
-                    scale = 1024;
-                    break;
-                case 'm':
-                case 'M':
-                    scale = 1024*1024;
-                    break;
-                case 'g':
-                case 'G':
-                    scale = 1024*1024*1024;
-                    break;
-                default:
-                    break;
-            }
-            break;default:break;}
-
-    // Default
-    else goto invalid_arguments;
-    
-    *p_memory_size = mem * scale;
-
     // Success
     return;
     
