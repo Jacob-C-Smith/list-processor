@@ -48,6 +48,7 @@ struct list_processor_s
 struct symbolic_expression_property_s
 {
     const char  _name[64];
+    const char  _description[256];
     fn_lp_eval *pfn_lp_eval;
 };
 
@@ -75,7 +76,7 @@ DLLEXPORT int lp_env_get ( list_processor *p_list_processor, const char *p_name,
  * 
  * @return 1 on success, 0 on error
  */
-DLLEXPORT int lp_register ( const char *const p_name, fn_lp_eval *pfn_lp_eval );
+DLLEXPORT int lp_register ( const char *const p_name, const char *p_description, fn_lp_eval *pfn_lp_eval );
 
 // Evaluate
 /** !

@@ -7,6 +7,7 @@ extern fn_lp_eval lp_write;
 
 static bool initialized = false;
 static dict *p_global = (void *) 0;
+static dict *p_help = (void *) 0;
 
 int lp_help ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
@@ -63,6 +64,7 @@ void lp_init ( void )
 
     // Construct a global lookup
     dict_construct(&p_global, 1024, 0);
+    dict_construct(&p_help, 2048, 0);
 
     // Set the initialized flag
     initialized = true;
@@ -81,18 +83,26 @@ int lp_constructor ( list_processor **pp_list_processor, size_t bump_size )
     // External declarations
     extern fn_lp_eval lp_read;
     extern fn_lp_eval lp_write;
+
     extern fn_lp_eval lp_help;
+
     extern fn_lp_eval lp_import;
+
     extern fn_lp_eval lp_add;
     extern fn_lp_eval lp_sub;
     extern fn_lp_eval lp_mul;
     extern fn_lp_eval lp_div;
-    extern fn_lp_eval lp_while;
+
     extern fn_lp_eval lp_if;
+    extern fn_lp_eval lp_while;
+    extern fn_lp_eval lp_fun;
+
     extern fn_lp_eval lp_and;
     extern fn_lp_eval lp_or;
+
     extern fn_lp_eval lp_eq;
     extern fn_lp_eval lp_neq;
+    
     extern fn_lp_eval lp_get;
     extern fn_lp_eval lp_set;
     extern fn_lp_eval lp_env;
@@ -106,11 +116,12 @@ int lp_constructor ( list_processor **pp_list_processor, size_t bump_size )
     // Construct an environment
     dict_construct(&p_list_processor->p_env, 2048, 0);
     dict_construct(&p_list_processor->p_scope, 2048, 0);
+    lp_register("help", "Print commands and descriptions", lp_help);
 
     // Set the read and write symbols
+    lp_env_set(p_list_processor, "help", lp_help);
     lp_env_set(p_list_processor, "read", lp_read);
     lp_env_set(p_list_processor, "write", lp_write);
-    lp_env_set(p_list_processor, "help", lp_help);
     lp_env_set(p_list_processor, "import", lp_import);
     lp_env_set(p_list_processor, "+", lp_add);
     lp_env_set(p_list_processor, "-", lp_sub);
@@ -118,8 +129,9 @@ int lp_constructor ( list_processor **pp_list_processor, size_t bump_size )
     lp_env_set(p_list_processor, "/", lp_div);
     lp_env_set(p_list_processor, "if", lp_if);
     lp_env_set(p_list_processor, "while", lp_while);
-    lp_env_set(p_list_processor, "&", lp_and);
-    lp_env_set(p_list_processor, "|", lp_or);
+    lp_env_set(p_list_processor, "fun", lp_fun);
+    lp_env_set(p_list_processor, "and", lp_and);
+    lp_env_set(p_list_processor, "or", lp_or);
     lp_env_set(p_list_processor, "==", lp_eq);
     lp_env_set(p_list_processor, "!=", lp_neq);
     lp_env_set(p_list_processor, "get", lp_get);
@@ -168,33 +180,40 @@ int lp_help ( list_processor *p_list_processor, array *p_array, json_value **pp_
 {
     
     // Initialized data
-    json_value *p_result = 0;
+    json_value *p_result = realloc(0, sizeof(json_value));
     void (*function)(const void *const p_key, size_t i );
     char *_p_binding[1024] = { 0 };
     size_t len = dict_keys(p_list_processor->p_env, 0);
     
     dict_keys(p_list_processor->p_env, (const char **const) _p_binding);
+    
+    printf("\n name       : pointer        : description ");
+    printf("\n------------:----------------:-----------------");
 
     // Print each binding
-    for (size_t i = 0; i < len; i++) printf("\n - %s",_p_binding[i]);
+    for (size_t i = 0; i < len; i++) {
+        printf("\n %-10s : %p : %s", _p_binding[i], dict_get(p_global, _p_binding[i]), dict_get(p_help, _p_binding[i]));
+    }
     printf("\n\n");
-    
+    *p_result = (json_value) { .type = JSON_VALUE_INTEGER, .integer = 1 };
     *pp_value = p_result;
 
     // Success
     return 1;
 }
 
-int lp_register ( const char *const p_name, fn_lp_eval *pfn_lp_eval )
+int lp_register ( const char *const p_name, const char *p_description, fn_lp_eval *pfn_lp_eval )
 {
 
     // Argument check
     if ( p_name      == (void *) 0 ) goto no_name;
+    //if ( p_description == (void *) 0 ) goto no_description;
     if ( pfn_lp_eval == (void *) 0 ) goto no_fn_lp_eval;
 
     // Add the symbolic expression
     dict_add(p_global, p_name, pfn_lp_eval);
-
+    dict_add(p_help, p_name, p_description);
+    
     // Success
     return 1;
 
