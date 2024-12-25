@@ -54,49 +54,53 @@ int lp_write ( list_processor *p_list_processor, array *p_array, json_value **pp
     
     // Initialized data
     int result = 1;
+    size_t len = array_size(p_array);
     json_value *p_value = realloc(0, sizeof(json_value)),
                *p_a = (void *) 0;
 
     // Write
-    array_index(p_array, 1, (void **) &p_a);
-    
-    try_again:
-    switch (p_a->type)
+    for (size_t i = 1; i < len; i++)
     {
+        array_index(p_array, i, (void **) &p_a);
+         
+        try_again:
+        switch (p_a->type)
+        {
 
-        // Any type
-        case JSON_VALUE_BOOLEAN:
-        case JSON_VALUE_STRING:
-        case JSON_VALUE_INTEGER:
-        case JSON_VALUE_NUMBER:
-        case JSON_VALUE_OBJECT:
+            // Any type
+            case JSON_VALUE_BOOLEAN:
+            case JSON_VALUE_STRING:
+            case JSON_VALUE_INTEGER:
+            case JSON_VALUE_NUMBER:
+            case JSON_VALUE_OBJECT:
 
-            // Print as json
-            json_value_print(p_a);
+                // Print as json
+                json_value_print(p_a);
 
-            // Newline
-            putchar('\n');
-            
-            // Done
-            break;
-            
-        case JSON_VALUE_ARRAY:
-            
-            // Evaluate the list
-            if ( lp_eval(p_list_processor, p_a, &p_a) == 1 ) goto try_again;
-            
-            // Print the list
-            break;
+                // Newline
+                putchar('\n');
+                
+                // Done
+                break;
+                
+            case JSON_VALUE_ARRAY:
+                
+                // Evaluate the list
+                if ( lp_eval(p_list_processor, p_a, &p_a) == 1 ) goto try_again;
+                
+                // Print the list
+                break;
 
-        // Default
-        case JSON_VALUE_INVALID:
-        default:
+            // Default
+            case JSON_VALUE_INVALID:
+            default:
 
-            // Error
-            result = 0;
+                // Error
+                result = 0;
 
-            // Done
-            break;
+                // Done
+                break;
+        }
     }
 
     // Populate the value
