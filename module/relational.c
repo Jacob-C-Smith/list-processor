@@ -1,26 +1,23 @@
 
 #include <stdio.h>
 #include <json/json.h>
-#include <eddy/eddy.h>
+#include <list_processor/list_processor.h>
 
-json_value *eddy_eq  ( array *p_array );
-json_value *eddy_neq ( array *p_array );
+fn_lp_eval lp_eq;
+fn_lp_eval lp_neq;
 
-void eddy_base_relational_register ( void )
+void lp_base_relational_register ( void )
 {
 
-    // Equals
-    eddy_register("==", eddy_eq);
-
-    // Not equals
-    eddy_register("!=", eddy_neq);
+    lp_register("==", lp_eq);
+    lp_register("!=", lp_neq);
 
 
     fprintf(stderr, "[eddy] [relational] Registered\n");    
 }
 
 
-json_value *eddy_eq ( array *p_array )
+int lp_eq ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -31,8 +28,8 @@ json_value *eddy_eq ( array *p_array )
     array_index(p_array, 1, (void **) &p_a);
     array_index(p_array, 2, (void **) &p_b);
     
-    p_a = process_symbol(p_a);
-    p_b = process_symbol(p_b);
+    lp_eval(p_list_processor, p_a, &p_a);
+    lp_eval(p_list_processor, p_b, &p_b);
 
     if ( p_a->type != p_b->type ) goto done;
 
@@ -48,8 +45,8 @@ json_value *eddy_eq ( array *p_array )
             break;
 
         case JSON_VALUE_ARRAY:
-            p_a = process_symbol(p_a);
-            p_b = process_symbol(p_b);
+            lp_eval(p_list_processor, p_a, &p_a);
+            lp_eval(p_list_processor, p_b, &p_b);
             goto try_again;
         
         default:
@@ -60,11 +57,11 @@ json_value *eddy_eq ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_BOOLEAN,
     p_value->boolean = result;
-
-    return p_value;
+    *pp_value = p_value;
+    return 1;
 }
 
-json_value *eddy_neq ( array *p_array )
+int lp_neq ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -75,6 +72,9 @@ json_value *eddy_neq ( array *p_array )
     array_index(p_array, 1, (void **) &p_a);
     array_index(p_array, 2, (void **) &p_b);
     
+    lp_eval(p_list_processor, p_a, &p_a);
+    lp_eval(p_list_processor, p_b, &p_b);
+
     if ( p_a->type != p_b->type ) goto done;
 
     try_again:
@@ -89,8 +89,8 @@ json_value *eddy_neq ( array *p_array )
             break;
 
         case JSON_VALUE_ARRAY:
-            p_a = process_symbol(p_a);
-            p_b = process_symbol(p_b);
+            lp_eval(p_list_processor, p_a, &p_a);
+            lp_eval(p_list_processor, p_b, &p_b);
             goto try_again;
         
         default:
@@ -101,6 +101,6 @@ json_value *eddy_neq ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_BOOLEAN,
     p_value->boolean = result;
-
-    return p_value;
+    *pp_value = p_value;
+    return 1;
 }

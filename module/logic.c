@@ -1,23 +1,18 @@
 
 #include <stdio.h>
 #include <json/json.h>
-#include <eddy/eddy.h>
+#include <list_processor/list_processor.h>
 
-json_value *eddy_and ( array *p_array );
-json_value *eddy_or ( array *p_array );
+fn_lp_eval lp_and;
+fn_lp_eval lp_or;
 
 void eddy_base_logic_register ( void )
 {
-
-    // Logical AND
-    eddy_register("&", eddy_and);
-
-    // Logical OR
-    eddy_register("|", eddy_or);
+    lp_register("&", lp_and);
+    lp_register("|", lp_or);
 }
 
-
-json_value *eddy_and ( array *p_array )
+int lp_and ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -44,10 +39,12 @@ json_value *eddy_and ( array *p_array )
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
+                lp_eval(p_list_processor, p_value, &p_value);
                 goto try_again;
                 continue;
-            
+            case JSON_VALUE_BOOLEAN:
+                result &= p_value->boolean;
+                break;
             default:
                 break;
         }
@@ -57,11 +54,11 @@ json_value *eddy_and ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_BOOLEAN,
     p_value->boolean = result;
-
-    return p_value;
+    *pp_value = p_value;
+    return 1;
 }
 
-json_value *eddy_or ( array *p_array )
+int lp_or ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -88,10 +85,13 @@ json_value *eddy_or ( array *p_array )
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
+                lp_eval(p_list_processor, p_value, &p_value);
                 goto try_again;
                 continue;
             
+            case JSON_VALUE_BOOLEAN:
+                result |= p_value->boolean;
+                break;
             default:
                 break;
         }
@@ -101,6 +101,6 @@ json_value *eddy_or ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_BOOLEAN,
     p_value->boolean = result;
-
-    return p_value;
+    *pp_value = p_value;
+    return 1;
 }

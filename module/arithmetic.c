@@ -12,12 +12,10 @@
 // json module
 #include <json/json.h>
 
-// eddy module
-#include <eddy/eddy.h>
+// list processor module
+#include <list_processor/list_processor.h>
 
 // Forward declarations
-
-
 /** !
  * add operation
  *
@@ -25,7 +23,7 @@
  * 
  * @return p_array[1] + p_array[2] + ... + p_array[N] 
  */
-json_value *eddy_add ( array *p_array );
+DLLEXPORT int lp_add ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
 /** !
  * sub operation
@@ -34,7 +32,7 @@ json_value *eddy_add ( array *p_array );
  * 
  * @return p_array[1] - p_array[2] - ... - p_array[N] 
  */
-json_value *eddy_sub ( array *p_array );
+DLLEXPORT int lp_sub ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
 /** !
  * mul operation
@@ -43,7 +41,7 @@ json_value *eddy_sub ( array *p_array );
  * 
  * @return p_array[1] * p_array[2] * ... * p_array[N] 
  */
-json_value *eddy_mul ( array *p_array );
+DLLEXPORT int lp_mul ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
 /** !
  * div operation
@@ -52,24 +50,25 @@ json_value *eddy_mul ( array *p_array );
  * 
  * @return p_array[1] / p_array[2] / ... / p_array[N] 
  */
-json_value *eddy_div ( array *p_array );
+DLLEXPORT int lp_div ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
 // Function declarations
 void eddy_base_arithmetic_register ( void )
 {
 
     // Register arithmetic functions
-    eddy_register("+", eddy_add);
-    eddy_register("-", eddy_sub);
-    eddy_register("*", eddy_mul);
-    eddy_register("/", eddy_div);
+    lp_register("+", lp_add);
+    lp_register("-", lp_sub);
+    lp_register("*", lp_mul);
+    lp_register("/", lp_div);
 
     // Done
     return;
 }
 
-json_value *eddy_add ( array *p_array )
+int lp_add ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
+
 
     // Initialized data
     size_t max = array_size(p_array);
@@ -115,7 +114,7 @@ json_value *eddy_add ( array *p_array )
             case JSON_VALUE_ARRAY:
 
                 // eval
-                p_value = process_symbol(p_value);
+                lp_eval(p_list_processor, p_value, &p_value);
 
                 // Done
                 goto try_again;
@@ -128,11 +127,11 @@ json_value *eddy_add ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_INTEGER,
     p_value->integer = acc;
-
-    return p_value;
+    *pp_value = p_value;
+    return 1;
 }
 
-json_value *eddy_sub ( array *p_array )
+int lp_sub ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -153,7 +152,7 @@ json_value *eddy_sub ( array *p_array )
             break;
 
         case JSON_VALUE_ARRAY:
-            p_init = process_symbol(p_init);
+            lp_eval(p_list_processor, p_init, &p_init);
             goto try_again;
         
         default:
@@ -181,7 +180,7 @@ json_value *eddy_sub ( array *p_array )
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
+                lp_eval(p_list_processor, p_value, &p_value);
                 goto try_again_i;
                 continue;
             
@@ -194,11 +193,12 @@ json_value *eddy_sub ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_INTEGER,
     p_value->integer = accumulator;
+    *pp_value = p_value;
 
-    return p_value;
+    return 1;
 }
 
-json_value *eddy_mul ( array *p_array )
+int lp_mul ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -225,7 +225,7 @@ json_value *eddy_mul ( array *p_array )
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_i_value = process_symbol(p_i_value);
+                lp_eval(p_list_processor, p_i_value, &p_i_value);
                 goto try_again;
                 continue;
                 
@@ -238,11 +238,12 @@ json_value *eddy_mul ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_INTEGER,
     p_value->integer = accumulator;
+    *pp_value = p_value;
 
-    return p_value;
+    return 1;
 }
 
-json_value *eddy_div ( array *p_array )
+int lp_div ( list_processor *p_list_processor, array *p_array, json_value **pp_value )
 {
 
     size_t max = array_size(p_array);
@@ -263,7 +264,7 @@ json_value *eddy_div ( array *p_array )
             break;
 
         case JSON_VALUE_ARRAY:
-            p_init = process_symbol(p_init);
+            lp_eval(p_list_processor, p_init, &p_init);
             goto try_again;
         
         default:
@@ -291,7 +292,7 @@ json_value *eddy_div ( array *p_array )
                 break;
 
             case JSON_VALUE_ARRAY:
-                p_value = process_symbol(p_value);
+                lp_eval(p_list_processor, p_value, &p_value);
                 goto try_again_i;
                 continue;
             
@@ -304,6 +305,7 @@ json_value *eddy_div ( array *p_array )
     json_value *p_value = realloc(0, sizeof(json_value));
     p_value->type    = JSON_VALUE_INTEGER,
     p_value->integer = accumulator;
+    *pp_value = p_value;
 
-    return p_value;
+    return 1;
 }
