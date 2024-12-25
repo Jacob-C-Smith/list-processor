@@ -37,5 +37,5 @@
 ```
 ## Interpreter
 ```bash
--25
+5
 ```

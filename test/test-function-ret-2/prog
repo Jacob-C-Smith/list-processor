@@ -1,0 +1,2 @@
+(fun return_2 () 2)
+(write (return_2))

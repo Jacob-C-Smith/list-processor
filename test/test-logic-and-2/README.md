@@ -8,7 +8,7 @@
 ```
 ## Source
 ```lisp
-( write ( & 0 0 ) ( & 0 1 ) ( & 1 0 ) ( & 1 1 ) )
+( write ( and 0 0 ) ( and 0 1 ) ( and 1 0 ) ( and 1 1 ) )
 ```
 ## Token Stream
 ```json
@@ -27,22 +27,22 @@
 {"separator":"("}
 {"identifier":"write"}
 {"separator":"("}
-{"identifier":"&"}
+{"identifier":"and"}
 {"identifier":0}
 {"identifier":0}
 {"separator":")"}
 {"separator":"("}
-{"identifier":"&"}
+{"identifier":"and"}
 {"identifier":0}
 {"identifier":1}
 {"separator":")"}
 {"separator":"("}
-{"identifier":"&"}
+{"identifier":"and"}
 {"identifier":1}
 {"identifier":0}
 {"separator":")"}
 {"separator":"("}
-{"identifier":"&"}
+{"identifier":"and"}
 {"identifier":1}
 {"identifier":1}
 {"separator":")"}
@@ -50,7 +50,7 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "&", 0, 0 ], [ "&", 0, 1 ], [ "&", 1, 0 ], [ "&", 1, 1 ] ]
+[ "write", [ "and", 0, 0 ], [ "and", 0, 1 ], [ "and", 1, 0 ], [ "and", 1, 1 ] ]
 
 ```
 ## Interpreter

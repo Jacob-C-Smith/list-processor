@@ -1,2 +1,1 @@
-( set "name" "Jake" )
-( write (get "name"))
+( write (read))

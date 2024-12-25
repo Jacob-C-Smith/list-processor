@@ -1,0 +1,13 @@
+{"separator":"("}
+{"identifier":"fun"}
+{"identifier":"return_1"}
+{"separator":"("}
+{"separator":")"}
+{"identifier":1}
+{"separator":")"}
+{"separator":"("}
+{"identifier":"write"}
+{"separator":"("}
+{"identifier":"return_1"}
+{"separator":")"}
+{"separator":")"}

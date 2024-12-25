@@ -1,35 +1,34 @@
 # prog
 ## Human
 ```
-4 - 2 - 1
+
 ```
 ## Source
 ```lisp
-( write ( - 4 2 1 ) ) 
-```
+(fun return_2 () 2)
+(write (return_2))```
 ## Token Stream
 ```json
-{"identifier":4}
-{"identifier":"-"}
+{"separator":"("}
+{"identifier":"fun"}
+{"identifier":"return_2"}
+{"separator":"("}
+{"separator":")"}
 {"identifier":2}
-{"identifier":"-"}
-{"identifier":1}
+{"separator":")"}
 {"separator":"("}
 {"identifier":"write"}
 {"separator":"("}
-{"identifier":"-"}
-{"identifier":4}
-{"identifier":2}
-{"identifier":1}
+{"identifier":"return_2"}
 {"separator":")"}
 {"separator":")"}
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "-", 4, 2, 1 ] ]
+[ "fun", "return_2", [  ]2 ]
+[ "write", [ "return_2" ] ]
 
 ```
 ## Interpreter
 ```bash
-1
 ```

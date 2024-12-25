@@ -6,31 +6,22 @@
 ## Source
 ```lisp
 hello
-( set "name" "Jake" )
-( write (get "name"))
+( write (read))
 ```
 ## Token Stream
 ```json
 {"separator":"("}
-{"identifier":"set"}
-{"identifier":"name"}
-{"identifier":"Jake"}
-{"separator":")"}
-{"separator":"("}
 {"identifier":"write"}
 {"separator":"("}
-{"identifier":"get"}
-{"identifier":"name"}
+{"identifier":"read"}
 {"separator":")"}
 {"separator":")"}
 ```
 ## Abstract syntax tree
 ```json
-[ "set", "name", "Jake" ]
-[ "write", [ "get", "name" ] ]
+[ "write", [ "read" ] ]
 
 ```
 ## Interpreter
 ```bash
-"Jake"
 ```

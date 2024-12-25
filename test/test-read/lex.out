@@ -1,12 +1,6 @@
 {"separator":"("}
-{"identifier":"set"}
-{"identifier":"name"}
-{"identifier":"Jake"}
-{"separator":")"}
-{"separator":"("}
 {"identifier":"write"}
 {"separator":"("}
-{"identifier":"get"}
-{"identifier":"name"}
+{"identifier":"read"}
 {"separator":")"}
 {"separator":")"}

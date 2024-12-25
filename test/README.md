@@ -31,6 +31,12 @@
 
 [test-example-hello_world](test-example-hello_world/README.md)
 
+[test-function-ret-1](test-function-ret-1/README.md)
+
+[test-function-ret-2](test-function-ret-2/README.md)
+
+[test-function-ret-param](test-function-ret-param/README.md)
+
 [test-fused-2](test-fused-2/README.md)
 
 [test-fused-3](test-fused-3/README.md)
