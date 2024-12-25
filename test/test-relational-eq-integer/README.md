@@ -13,33 +13,33 @@
 {"identifier":"write"}
 {"separator":"("}
 {"identifier":"=="}
-{"identifier":"0"}
-{"identifier":"0"}
+{"identifier":0}
+{"identifier":0}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
-{"identifier":"0"}
-{"identifier":"1"}
+{"identifier":0}
+{"identifier":1}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
-{"identifier":"0"}
+{"identifier":0}
 {"identifier":"-1"}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
-{"identifier":"1"}
-{"identifier":"0"}
+{"identifier":1}
+{"identifier":0}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
 {"identifier":"-1"}
-{"identifier":"0"}
+{"identifier":0}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
-{"identifier":"1"}
-{"identifier":"1"}
+{"identifier":1}
+{"identifier":1}
 {"separator":")"}
 {"separator":"("}
 {"identifier":"=="}
@@ -50,7 +50,8 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "==", "0", "0" ], [ "==", "0", "1" ], [ "==", "0", "-1" ], [ "==", "1", "0" ], [ "==", "-1", "0" ], [ "==", "1", "1" ], [ "==", "-1", "-1" ] ]
+[ "write", [ "==", 0, 0 ], [ "==", 0, 1 ], [ "==", 0, "-1" ], [ "==", 1, 0 ], [ "==", "-1", 0 ], [ "==", 1, 1 ], [ "==", "-1", "-1" ] ]
+
 ```
 ## Interpreter
 ```bash

@@ -1,0 +1,12 @@
+{"separator":"("}
+{"identifier":"if"}
+{"separator":"("}
+{"identifier":"=="}
+{"identifier":5}
+{"identifier":5}
+{"separator":")"}
+{"separator":"("}
+{"identifier":"write"}
+{"identifier":1}
+{"separator":")"}
+{"separator":")"}

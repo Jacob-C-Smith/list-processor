@@ -36,6 +36,7 @@
 ## Abstract syntax tree
 ```json
 [ "write", [ "!=", "false", "false" ], [ "!=", "false", "true" ], [ "!=", "true", "false" ], [ "!=", "true", "true" ] ]
+
 ```
 ## Interpreter
 ```bash

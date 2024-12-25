@@ -27,6 +27,8 @@
 
 [test-control-if-eq](test-control-if-eq/README.md)
 
+[test-control-while](test-control-while/README.md)
+
 [test-example-hello_world](test-example-hello_world/README.md)
 
 [test-fused-2](test-fused-2/README.md)
@@ -52,6 +54,8 @@
 [test-product_of_sums-3](test-product_of_sums-3/README.md)
 
 [test-product_of_sums-4](test-product_of_sums-4/README.md)
+
+[test-read](test-read/README.md)
 
 [test-relational-eq-bool](test-relational-eq-bool/README.md)
 

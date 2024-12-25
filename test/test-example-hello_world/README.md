@@ -11,6 +11,7 @@ Print "Hello, World!"
 ```json
 {"identifier":"Print"}
 {"identifier":"Hello, World!"}
+{"separator":"("}
 {"identifier":"write"}
 {"identifier":"Hello, World!"}
 {"separator":")"}
@@ -18,6 +19,7 @@ Print "Hello, World!"
 ## Abstract syntax tree
 ```json
 [ "write", "Hello, World!" ]
+
 ```
 ## Interpreter
 ```bash

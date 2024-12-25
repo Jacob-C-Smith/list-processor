@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+
+./../build/lexer 2>/dev/null | ./../build/syntax 2>/dev/null | ./../build/interpreter 2>/dev/null

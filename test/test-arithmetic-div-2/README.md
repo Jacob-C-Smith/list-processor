@@ -9,21 +9,22 @@
 ```
 ## Token Stream
 ```json
-{"identifier":"8"}
+{"identifier":8}
 {"identifier":"/"}
-{"identifier":"2"}
+{"identifier":2}
 {"separator":"("}
 {"identifier":"write"}
 {"separator":"("}
 {"identifier":"/"}
-{"identifier":"8"}
-{"identifier":"4"}
+{"identifier":8}
+{"identifier":4}
 {"separator":")"}
 {"separator":")"}
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "/", "8", "4" ] ]
+[ "write", [ "/", 8, 4 ] ]
+
 ```
 ## Interpreter
 ```bash
