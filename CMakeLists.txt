@@ -158,22 +158,16 @@ target_include_directories(syntax PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLE
 target_link_libraries(syntax parallel node json array dict sync)
 
 add_executable (interpreter "interpreter.c")
-add_dependencies(interpreter list_processor_base list_processor parallel node json array dict sync)
+add_dependencies(interpreter list_processor parallel node json array dict sync)
 target_include_directories(interpreter PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(interpreter list_processor_base list_processor parallel node json array dict sync)
+target_link_libraries(interpreter list_processor parallel node json array dict sync)
 
-# Add source to this project's library
-add_library (list_processor_base SHARED "module/main.c" "module/arithmetic.c" "module/logic.c" "module/relational.c" "module/control.c" "module/string.c" "module/io.c" "module/module.c" "module/env.c")
-add_dependencies(list_processor_base list_processor parallel node json array dict sync)
-target_include_directories(list_processor_base PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(list_processor_base PRIVATE list_processor parallel node json array dict sync)
-
-add_library (my_module SHARED "my_module.c")
+add_library (my_module SHARED "my_module.c" )
 add_dependencies(my_module list_processor parallel node json array dict sync)
 target_include_directories(my_module PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(my_module PRIVATE list_processor parallel node json array dict sync)
 
-add_library (list_processor SHARED "list_processor.c")
+add_library (list_processor SHARED "list_processor.c" "module/main.c" "module/arithmetic.c" "module/logic.c" "module/relational.c" "module/control.c" "module/string.c" "module/io.c" "module/module.c" "module/env.c")
 add_dependencies(list_processor parallel node json array dict sync)
 target_include_directories(list_processor PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(list_processor PRIVATE parallel node json array dict sync)

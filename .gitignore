@@ -3,6 +3,5 @@ lib/
 .vscode
 /CMakeFiles
 CMakeCache.txt
-/eddysrc
-program.eddy
 program
+libmy_module.so
