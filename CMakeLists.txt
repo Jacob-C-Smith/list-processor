@@ -2,7 +2,7 @@
 cmake_minimum_required (VERSION 3.16.0)
 
 # This is the name of the repository
-project ("eddy")
+project ("list-processor")
 
 # Build sync with semaphore
 add_compile_definitions(BUILD_SYNC_WITH_SEMAPHORE)
@@ -129,19 +129,19 @@ if ( NOT "${HAS_PARALLEL}")
     endif()
 endif()
 
-# Set the eddy module
-if ( NOT "${HAS_EDDY}")
+# Set the list processor module
+if ( NOT "${HAS_LIST_PROCESSOR}")
 
     # Log
-    message("[eddy] Adding eddy project")
+    message("[list processor] Adding list processor project")
 
-    # Set the eddy include
-    set(EDDY_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
+    # Set the list processor include
+    set(LIST_PROCESSOR_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 
-    # Let any parent project know that it has the eddy project
+    # Let any parent project know that it has the list processor project
     if(NOT PROJECT_IS_TOP_LEVEL)
-        set(HAS_EDDY true PARENT_SCOPE)
-        set(EDDY_INCLUDE_DIR ${EDDY_INCLUDE_DIR} PARENT_SCOPE)
+        set(HAS_LIST_PROCESSOR true PARENT_SCOPE)
+        set(LIST_PROCESSOR_INCLUDE_DIR ${LIST_PROCESSOR_INCLUDE_DIR} PARENT_SCOPE)
     endif()
 endif()
 
@@ -149,37 +149,37 @@ endif()
 # Add source to this project's executable.
 add_executable (lexer "lexer.c")
 add_dependencies(lexer json)
-target_include_directories(lexer PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_include_directories(lexer PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(lexer parallel node json array dict sync)
 
 add_executable (syntax "syntax.c")
 add_dependencies(syntax json)
-target_include_directories(syntax PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_include_directories(syntax PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(syntax parallel node json array dict sync)
 
 add_executable (interpreter "interpreter.c")
-add_dependencies(interpreter eddy_base eddy parallel node json array dict sync)
-target_include_directories(interpreter PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(interpreter eddy_base eddy parallel node json array dict sync)
+add_dependencies(interpreter list_processor_base list_processor parallel node json array dict sync)
+target_include_directories(interpreter PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_link_libraries(interpreter list_processor_base list_processor parallel node json array dict sync)
 
 # Add source to this project's library
-add_library (eddy_base SHARED "module/eddy/main.c" "module/eddy/arithmetic.c" "module/eddy/logic.c" "module/eddy/relational.c" "module/eddy/control.c" "module/eddy/string.c" "module/eddy/io.c")
-add_dependencies(eddy_base eddy parallel node json array dict sync)
-target_include_directories(eddy_base PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(eddy_base PRIVATE eddy parallel node json array dict sync)
+add_library (list_processor_base SHARED "module/main.c" "module/arithmetic.c" "module/logic.c" "module/relational.c" "module/control.c" "module/string.c" "module/io.c" "module/module.c" "module/env.c")
+add_dependencies(list_processor_base list_processor parallel node json array dict sync)
+target_include_directories(list_processor_base PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_link_libraries(list_processor_base PRIVATE list_processor parallel node json array dict sync)
 
 add_library (my_module SHARED "my_module.c")
-add_dependencies(my_module eddy parallel node json array dict sync)
-target_include_directories(my_module PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(my_module PRIVATE eddy parallel node json array dict sync)
+add_dependencies(my_module list_processor parallel node json array dict sync)
+target_include_directories(my_module PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_link_libraries(my_module PRIVATE list_processor parallel node json array dict sync)
 
-add_library (eddy SHARED "eddy.c")
-add_dependencies(eddy parallel node json array dict sync)
-target_include_directories(eddy PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
-target_link_libraries(eddy PRIVATE parallel node json array dict sync)
+add_library (list_processor SHARED "list_processor.c")
+add_dependencies(list_processor parallel node json array dict sync)
+target_include_directories(list_processor PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_link_libraries(list_processor PRIVATE parallel node json array dict sync)
 
 # Add source to project's util
 add_executable (lexer_pretty_print "lexer_pretty_printer.c")
 add_dependencies(lexer_pretty_print json)
-target_include_directories(lexer_pretty_print PUBLIC ${EDDY_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
+target_include_directories(lexer_pretty_print PUBLIC ${LIST_PROCESSOR_INCLUDE_DIR} ${PARALLEL_INCLUDE_DIR} ${NODE_INCLUDE_DIR} ${JSON_INCLUDE_DIR} ${ARRAY_INCLUDE_DIR} ${DICT_INCLUDE_DIR})
 target_link_libraries(lexer_pretty_print parallel node json array dict sync)
