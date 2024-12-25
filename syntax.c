@@ -1,5 +1,5 @@
 /** !
- * Eddy syntax
+ * list processor syntax
  * 
  * @file main.c
  * 
@@ -13,6 +13,9 @@
 // json module
 #include <json/json.h>
 
+// list processor
+#include <list_processor/list_processor.h>
+
 int print_list ( void )
 {
 
@@ -20,7 +23,7 @@ int print_list ( void )
     char *p_in        = _in;
     bool first = 1;
     
-    while( fgets(p_in, 1024, stdin) )
+    while ( fgets(p_in, 1024, stdin) )
     {
 
         // Initialized data
@@ -79,19 +82,13 @@ int print_list ( void )
 int main ( int argc, const char *argv[] )
 {
 
-    // Initialized data
-
-
     // read-eval-write loop
     print_list();
-
+    
     fprintf(stderr, "\033[44m%s \033[0m", argv[0]);
 
     // EOF?
-    if ( feof(stdin) )
-        fprintf(stderr, "\033[44m>>> \033[0m");
-
-    putchar('\n');
+    if ( feof(stdin) ) fprintf(stderr, "\033[44m>>> \033[0m");
 
     // Success
     return EXIT_SUCCESS;
