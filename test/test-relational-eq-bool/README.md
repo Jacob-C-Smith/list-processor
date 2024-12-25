@@ -35,8 +35,12 @@
 ```
 ## Abstract syntax tree
 ```json
-[ "write", [ "==", "false", "false" ], [ "==", "false", "true" ], [ "==", "true", "false" ], [ "==", "true", "true" ] ]```
+[ "write", [ "==", "false", "false" ], [ "==", "false", "true" ], [ "==", "true", "false" ], [ "==", "true", "true" ] ]
+```
 ## Interpreter
 ```bash
+true
+false
+false
 true
 ```

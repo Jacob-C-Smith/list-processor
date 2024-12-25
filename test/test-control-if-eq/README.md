@@ -17,14 +17,16 @@
 {"identifier":"5"}
 {"separator":")"}
 {"separator":"("}
-{"identifier":"print"}
+{"identifier":"write"}
 {"identifier":"eq"}
 {"separator":")"}
 {"separator":")"}
 ```
 ## Abstract syntax tree
 ```json
-[ "if", [ "==", "5", "5" ], [ "print", "eq" ] ]```
+[ "if", [ "==", "5", "5" ], [ "write", "eq" ] ]
+```
 ## Interpreter
 ```bash
+"eq"
 ```

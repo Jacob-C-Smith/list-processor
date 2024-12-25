@@ -29,6 +29,8 @@ Compare() {
 count=1
 max=$(ls | grep -i "test-" | wc -l)
 
+echo "" > README.md
+
 for t in test-* ; do 
     printf "\033[01;34m [ $count/$max ] "
     count=$(($count+1))
@@ -38,4 +40,5 @@ for t in test-* ; do
     cat "./$t/inp" | ./compile_info.sh "./$t/prog" "./$t/human" ./$t/out.i > ./$t/README.md
     
     Compare $t i
+    printf "%s" $t | awk '{printf "[%s](%s/%s)\n\n", $1, $1, "README.md"}' >> README.md
 done

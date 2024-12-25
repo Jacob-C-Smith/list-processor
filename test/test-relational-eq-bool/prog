@@ -1,4 +1,1 @@
-( write ( == false false ) )
-( write ( == false true ) )
-( write ( == true false ) )
-( write ( == true true ) )
+( write ( == false false ) ( == false true ) ( == true false ) ( == true true ) )

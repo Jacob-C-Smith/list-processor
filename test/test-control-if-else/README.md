@@ -1,11 +1,11 @@
 # prog
 ## Human
 ```
-
+if 5 eq 5 print "eq"
 ```
 ## Source
 ```lisp
-if 5 eq 5 print "eq"( if ( == 5 5 ) ( write "eq" ) )
+( if ( == 5 5 ) ( write 1 ) )
 ```
 ## Token Stream
 ```json
@@ -22,14 +22,16 @@ if 5 eq 5 print "eq"( if ( == 5 5 ) ( write "eq" ) )
 {"identifier":"5"}
 {"separator":")"}
 {"separator":"("}
-{"identifier":"print"}
-{"identifier":"eq"}
+{"identifier":"write"}
+{"identifier":"1"}
 {"separator":")"}
 {"separator":")"}
 ```
 ## Abstract syntax tree
 ```json
-"if", "5", "eq", "5", "print", "eq", "if", [ "==", "5", "5" ], [ "print", "eq" ] ]```
+[ "if", [ "==", "5", "5" ], [ "write", "1" ] ]
+```
 ## Interpreter
 ```bash
+"1"
 ```

@@ -1,14 +1,14 @@
 # prog
 ## Human
 ```
-
-```
-## Source
-```lisp
 0 & 0
 0 & 1
 1 & 0
-1 & 1( write ( | 0 0 ) ( | 0 1 ) ( | 1 0 ) ( | 1 1 ) )
+1 & 1
+```
+## Source
+```lisp
+( write ( | 0 0 ) ( | 0 1 ) ( | 1 0 ) ( | 1 1 ) )
 ```
 ## Token Stream
 ```json
@@ -50,7 +50,12 @@
 ```
 ## Abstract syntax tree
 ```json
+[ "write", [ "|", "0", "0" ], [ "|", "0", "1" ], [ "|", "1", "0" ], [ "|", "1", "1" ] ]
 ```
 ## Interpreter
 ```bash
+false
+true
+true
+true
 ```

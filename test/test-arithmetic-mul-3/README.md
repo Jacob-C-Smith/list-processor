@@ -1,11 +1,11 @@
 # prog
 ## Human
 ```
-
+3 * 2 * 1
 ```
 ## Source
 ```lisp
-3 * 2 * 1( write ( * 3 2 1 ) ) 
+( write ( * 3 2 1 ) ) 
 ```
 ## Token Stream
 ```json
@@ -26,7 +26,9 @@
 ```
 ## Abstract syntax tree
 ```json
-"3", "*", "2", "*", "1", [ "write", [ "*", "3", "2", "1" ] ]```
+[ "write", [ "*", "3", "2", "1" ] ]
+```
 ## Interpreter
 ```bash
+6
 ```

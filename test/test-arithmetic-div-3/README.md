@@ -1,11 +1,11 @@
 # prog
 ## Human
 ```
-
+16 / 4 / 2
 ```
 ## Source
 ```lisp
-16 / 4 / 2( write ( / 16 4 2 ) ) 
+( write ( / 16 4 2 ) ) 
 ```
 ## Token Stream
 ```json
@@ -26,7 +26,9 @@
 ```
 ## Abstract syntax tree
 ```json
-"16", "/", "4", "/", "2", [ "write", [ "/", "16", "4", "2" ] ]```
+[ "write", [ "/", "16", "4", "2" ] ]
+```
 ## Interpreter
 ```bash
+2
 ```
