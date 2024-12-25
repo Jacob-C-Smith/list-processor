@@ -1,0 +1,15 @@
+(write "Enter X: ")
+(set "x" (read))
+(write "Enter Y: ")
+(set "y" (read))
+
+(write 
+    (if
+        (==
+            (get "x")
+            (get "y")
+        )
+        "equal"
+        "not equal
+    )
+)
