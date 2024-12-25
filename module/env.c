@@ -7,11 +7,11 @@ fn_lp_eval lp_get;
 fn_lp_eval lp_set;
 fn_lp_eval lp_env;
 
-void eddy_base_env_register ( void )
+void lp_env_register ( void )
 {
-    lp_register("get", lp_get);
-    lp_register("set", lp_set);
-    lp_register("env", lp_env);
+    lp_register("get", "Get an environment variable", lp_get);
+    lp_register("set", "Set an environment variable", lp_set);
+    lp_register("env", "List variables in environment",lp_env);
 }
 
 int lp_get ( list_processor *p_list_processor, array *p_array, json_value **pp_value )

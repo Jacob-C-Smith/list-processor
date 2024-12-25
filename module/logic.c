@@ -6,10 +6,10 @@
 fn_lp_eval lp_and;
 fn_lp_eval lp_or;
 
-void eddy_base_logic_register ( void )
+void lp_logic_register ( void )
 {
-    lp_register("&", lp_and);
-    lp_register("|", lp_or);
+    lp_register("and", "Logical and", lp_and);
+    lp_register("or", "Logical or", lp_or);
 }
 
 int lp_and ( list_processor *p_list_processor, array *p_array, json_value **pp_value )

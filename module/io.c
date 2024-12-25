@@ -19,12 +19,12 @@
 int lp_read  ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 int lp_write ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
-void lp_base_io_register ( void )
+void lp_io_register ( void )
 {
 
     // IO
-    lp_register("read", lp_read);
-    lp_register("write", lp_write);
+    lp_register("read", "Read a line from standard input", lp_read);
+    lp_register("write", "Write a line to standard output", lp_write);
 
     // Done
     return;

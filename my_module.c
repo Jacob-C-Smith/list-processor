@@ -9,9 +9,9 @@ int my_module_c (list_processor *p_list_processor, array *p_in, json_value **p_o
 // Data
 symbolic_expression_property _manifest[] =
 {
-    { .pfn_lp_eval = my_module_a, ._name = "alice" },
-    { .pfn_lp_eval = my_module_b, ._name = "bob" },
-    { .pfn_lp_eval = my_module_c, ._name = "charlie" }
+    { .pfn_lp_eval = my_module_a, ._description = "Print Alice to standard out",   ._name = "alice" },
+    { .pfn_lp_eval = my_module_b, ._description = "Print Bob to standard out",     ._name = "bob" },
+    { .pfn_lp_eval = my_module_c, ._description = "Print Charlie to standard out", ._name = "charlie" }
 };
 size_t manifest_size = (sizeof(_manifest)/sizeof(symbolic_expression_property));
 
@@ -22,7 +22,7 @@ void my_module_init ( void )
     
     // My Module
     for (size_t i = 0; i < manifest_size; i++)
-        lp_register(_manifest[i]._name, _manifest[i].pfn_lp_eval);
+        lp_register(_manifest[i]._name, _manifest[i]._description, _manifest[i].pfn_lp_eval);
 
     // Done
     return;

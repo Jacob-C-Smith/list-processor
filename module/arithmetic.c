@@ -53,14 +53,14 @@ DLLEXPORT int lp_mul ( list_processor *p_list_processor, array *p_array, json_va
 DLLEXPORT int lp_div ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
 // Function declarations
-void eddy_base_arithmetic_register ( void )
+void lp_arithmetic_register ( void )
 {
 
     // Register arithmetic functions
-    lp_register("+", lp_add);
-    lp_register("-", lp_sub);
-    lp_register("*", lp_mul);
-    lp_register("/", lp_div);
+    lp_register("+", "Accumulate elements of list", lp_add);
+    lp_register("-", "Subtract elements of list", lp_sub);
+    lp_register("*", "Multiply elements of list", lp_mul);
+    lp_register("/", "Divide elements of list", lp_div);
 
     // Done
     return;
@@ -148,7 +148,7 @@ int lp_sub ( list_processor *p_list_processor, array *p_array, json_value **pp_v
             break;
 
         case JSON_VALUE_INTEGER:
-            accumulator -= p_init->integer;
+            accumulator = p_init->integer;
             break;
 
         case JSON_VALUE_ARRAY:

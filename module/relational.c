@@ -6,11 +6,11 @@
 fn_lp_eval lp_eq;
 fn_lp_eval lp_neq;
 
-void lp_base_relational_register ( void )
+void lp_relational_register ( void )
 {
 
-    lp_register("==", lp_eq);
-    lp_register("!=", lp_neq);
+    lp_register("==", "Equality", lp_eq);
+    lp_register("!=", "Inequality", lp_neq);
 
 
     fprintf(stderr, "[eddy] [relational] Registered\n");    

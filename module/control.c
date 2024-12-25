@@ -8,8 +8,8 @@ int lp_while ( list_processor *p_list_processor, array *p_array, json_value **pp
 void lp_control_register ( void )
 {
 
-    lp_register("if", lp_if);
-    lp_register("while", lp_while);
+    lp_register("if", "Conditional evaluation; (if (bool-expr) (true-block) <(false-block)>)", lp_if);
+    lp_register("while", "Repeat while continuation condition evaluates true", lp_while);
 }
 
 int lp_if ( list_processor *p_list_processor, array *p_array, json_value **pp_value )

@@ -21,10 +21,10 @@
 // Forward declarations
 int lp_import ( list_processor *p_list_processor, array *p_array, json_value **pp_value );
 
-void lp_base_module_register ( void )
+void lp_module_register ( void )
 {
 
-    lp_register("import", lp_import);
+    lp_register("import", "Open a shared object and add symbols to this scope.", lp_import);
 
     // Done
     return;
