@@ -102,6 +102,10 @@ int lp_constructor ( list_processor **pp_list_processor, size_t bump_size )
 
     extern fn_lp_eval lp_eq;
     extern fn_lp_eval lp_neq;
+    extern fn_lp_eval lp_gt;
+    extern fn_lp_eval lp_gte;
+    extern fn_lp_eval lp_lt;
+    extern fn_lp_eval lp_lte;
     
     extern fn_lp_eval lp_get;
     extern fn_lp_eval lp_set;
@@ -137,7 +141,12 @@ int lp_constructor ( list_processor **pp_list_processor, size_t bump_size )
     lp_env_set(p_list_processor, "get", lp_get);
     lp_env_set(p_list_processor, "set", lp_set);
     lp_env_set(p_list_processor, "env", lp_env);
-    
+    lp_env_set(p_list_processor, ">", lp_gt);
+    lp_env_set(p_list_processor, ">=", lp_gte);
+    lp_env_set(p_list_processor, "<", lp_lt);
+    lp_env_set(p_list_processor, "<=", lp_lte);
+
+
     // Set the max size
     p_list_processor->size = bump_size;
     
