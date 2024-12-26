@@ -1,2 +1,0 @@
-(fun return_param ( (param p any) ) (p))
-(write (return_param 5))

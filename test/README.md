@@ -31,12 +31,6 @@
 
 [test-example-hello_world](test-example-hello_world/README.md)
 
-[test-function-ret-1](test-function-ret-1/README.md)
-
-[test-function-ret-2](test-function-ret-2/README.md)
-
-[test-function-ret-param](test-function-ret-param/README.md)
-
 [test-fused-2](test-fused-2/README.md)
 
 [test-fused-3](test-fused-3/README.md)
@@ -61,13 +55,35 @@
 
 [test-product_of_sums-4](test-product_of_sums-4/README.md)
 
-[test-read](test-read/README.md)
-
 [test-relational-eq-bool](test-relational-eq-bool/README.md)
 
 [test-relational-eq-integer](test-relational-eq-integer/README.md)
 
 [test-relational-eq-string](test-relational-eq-string/README.md)
+
+[test-relational-gt-bool](test-relational-gt-bool/README.md)
+
+[test-relational-gte-bool](test-relational-gte-bool/README.md)
+
+[test-relational-gte-integer](test-relational-gte-integer/README.md)
+
+[test-relational-gte-string](test-relational-gte-string/README.md)
+
+[test-relational-gt-integer](test-relational-gt-integer/README.md)
+
+[test-relational-gt-string](test-relational-gt-string/README.md)
+
+[test-relational-lt-bool](test-relational-lt-bool/README.md)
+
+[test-relational-lte-bool](test-relational-lte-bool/README.md)
+
+[test-relational-lte-integer](test-relational-lte-integer/README.md)
+
+[test-relational-lte-string](test-relational-lte-string/README.md)
+
+[test-relational-lt-integer](test-relational-lt-integer/README.md)
+
+[test-relational-lt-string](test-relational-lt-string/README.md)
 
 [test-relational-neq-bool](test-relational-neq-bool/README.md)
 
